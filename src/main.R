@@ -3,13 +3,12 @@ options(java.parameters = "-Xmx64g")
 options(scipen = 999)
 options(warn=-1)
 
-#R-version
-if(paste0(R.version$major,'.',R.version$minor) != "4.3.2")message(paste0('\n!!!!!!\n\nCurrently you are using R ',paste0(R.version$major,'.',R.version$minor),'. It is recommended to use R 4.3.2.\nContinue at own risk\n\n!!!!!!\n'))
 
 # set project root
 .args  <- commandArgs(trailingOnly = TRUE)
 .root <- ifelse(is.na(.args[1]) || is.null(.args[1]), normalizePath(file.path(getwd())),.args[1])
 
+library(shiny)
 
 # load scripts ------------------------------------------------------------
 invisible(sapply(list.files(path = file.path(.root,'src','app')      ,pattern="*.R",full.names = T,recursive = T),source))

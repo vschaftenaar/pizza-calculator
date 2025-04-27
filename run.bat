@@ -16,18 +16,8 @@ color F
 
 for /f "delims=: tokens=*" %%A in ('findstr /b ::: "%~f0"') do @echo(%%A
 
-rem splash screen logo
-:: Path to the PowerShell script
-set PowerShellScript=%~dp0src\r\app\www\splash-logo\splash.ps1
-set ImagePath=%~dp0src\r\app\www\splash-logo\logo.png
-set Duration=3000
-set Size=.15
-
-:: Run the PowerShell script to show the splash screen
-start "" powershell -WindowStyle Hidden -NoProfile -ExecutionPolicy Bypass -File "%PowerShellScript%" -ImagePath "%ImagePath%"  -ScaleFactor %Size% -Duration %Duration%
-
 rem Set the subfolder where the R script is located
-set RScriptFolder=src\r
+set RScriptFolder=src
 
 rem Set the r-script (without .r extention)
 set RScriptName=main
@@ -61,11 +51,6 @@ for /f "delims=" %%a in ('dir /b /ad-h %RBasePath%\R-*') do (
 rem Construct the path to the RScript.exe
 set RScript64=%RBasePath%\%RLatest%\bin\x64\RScript.exe
 
-rem pull latest app-version from github
-call "%~dp0src\cmd\update.bat"
-
-
-echo. > "%~dp0src\r\app\www\splash-logo\.done"
 rem Check if RScript.exe exists
 if exist %RScript64% (
  rem Run the R script using RScript.exe
@@ -79,4 +64,4 @@ if exist %RScript64% (
 )
 
 
-rem pause
+REM pause
